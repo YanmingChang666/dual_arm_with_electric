@@ -1,0 +1,15 @@
+# Default initial positions for dual_arm_with_electric's ros2_control fake system
+
+initial_positions:
+  L_R01_Joint: 0
+  L_R02_Joint: 0
+  L_R03_Joint: 0
+  L_R04_Joint: 0
+  L_R05_Joint: 0
+  L_R06_Joint: 0
+  R_R01_Joint: 0
+  R_R02_Joint: 0
+  R_R03_Joint: 0
+  R_R04_Joint: 0
+  R_R05_Joint: 0
+  R_R06_Joint: 0

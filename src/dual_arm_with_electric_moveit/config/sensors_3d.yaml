@@ -1,0 +1,49 @@
+# my_robot_config/config/sensors_3d.yaml
+# (已修复YAML语法和缩进)
+
+octomap_resolution: 0.02  # 0.02 可能太精细，从0.05开始
+
+sensors:
+  - camera_1_pointcloud # 您可以给它起任何名字
+
+# 确保这个名字与上面 'name:' 字段中的名字一致
+camera_1_pointcloud:
+    # --- 1. 插件 ---
+    sensor_plugin: occupancy_map_monitor/PointCloudOctomapUpdater
+    
+    # --- 2. 话题 ---
+    # 这必须 100% 匹配您的 "ros2 topic list" 输出
+    point_cloud_topic: /camera_1/points
+    
+    # --- 3. 验证 TF 坐标系 (见下文) ---
+    # 您需要找出这个摄像头的 'frame_id' 并填在这里
+    sensor_frame: "camera_1" # <-- 这是一个猜测的名字，您必须验证它!
+
+    # --- 4. 性能参数 ---
+    max_range: 5.0
+    min_range: 0.5
+    point_subsample: 1
+    padding_offset: 0.1
+    padding_scale: 1.0
+    max_update_rate: 2.0
+    filtered_cloud_topic: /camera_1/filtered_points # (用于调试)
+
+    # --- 5. 修改自过滤连杆 (使用您的 ROBOT1010 连杆) ---
+    self_filter:
+      self_mask:
+        self_see_links:
+          - base_link     
+          - L_R01_Link
+          - L_R02_Link
+          - L_R03_Link
+          - L_R04_Link
+          - L_R05_Link
+          - L_R06_Link
+          - R_R01_Link
+          - R_R02_Link
+          - R_R03_Link
+          - R_R04_Link
+          - R_R05_Link
+          - R_R06_Link
+          - electric_driver_link
+
