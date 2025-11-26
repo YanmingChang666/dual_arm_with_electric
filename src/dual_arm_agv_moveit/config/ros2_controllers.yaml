@@ -1,0 +1,61 @@
+# This config file is used by ros2_control
+controller_manager:
+  ros__parameters:
+    update_rate: 100  # Hz
+
+    arm_l_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    arm_r_controller:
+      type: joint_trajectory_controller/JointTrajectoryController
+
+    joint_state_broadcaster:
+      type: joint_state_broadcaster/JointStateBroadcaster
+
+joint_state_broadcaster:
+  ros__parameters:
+    joints:
+      - lr52_1_joint
+      - lr52_2_joint
+      - lr52_3_joint
+      - lr52_4_joint
+      - lr52_5_joint
+      - lr52_6_joint
+      - rr51_1_joint
+      - rr51_2_joint
+      - rr51_3_joint
+      - rr51_4_joint
+      - rr51_5_joint
+      - rr51_6_joint
+    interfaces:
+      - position
+      - velocity
+
+arm_l_controller:
+  ros__parameters:
+    joints:
+      - lr52_1_joint
+      - lr52_2_joint
+      - lr52_3_joint
+      - lr52_4_joint
+      - lr52_5_joint
+      - lr52_6_joint
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity
+arm_r_controller:
+  ros__parameters:
+    joints:
+      - rr51_1_joint
+      - rr51_2_joint
+      - rr51_3_joint
+      - rr51_4_joint
+      - rr51_5_joint
+      - rr51_6_joint
+    command_interfaces:
+      - position
+    state_interfaces:
+      - position
+      - velocity

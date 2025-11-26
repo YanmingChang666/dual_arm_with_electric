@@ -1,0 +1,392 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--This does not replace URDF, and is not an extension of URDF.
+    This is a format for representing semantic information about the robot structure.
+    A URDF file must exist for this robot as well, where the joints and the links that are referenced are defined
+-->
+<robot name="dual_arm_agv">
+    <!--GROUPS: Representation of a set of joints and links. This can be useful for specifying DOF to plan for, defining arms, end effectors, etc-->
+    <!--LINKS: When a link is specified, the parent joint of that link (if it exists) is automatically included-->
+    <!--JOINTS: When a joint is specified, the child link of that joint (which will always exist) is automatically included-->
+    <!--CHAINS: When a chain is specified, all the links along the chain (including endpoints) are included in the group. Additionally, all the joints that are parents to included links are also included. This means that joints along the chain and the parent joint of the base link are included in the group-->
+    <!--SUBGROUPS: Groups can also be formed by referencing to already defined group names-->
+    <group name="arm_l">
+        <joint name="lr52_1_joint"/>
+        <joint name="lr52_2_joint"/>
+        <joint name="lr52_3_joint"/>
+        <joint name="lr52_4_joint"/>
+        <joint name="lr52_5_joint"/>
+        <joint name="lr52_6_joint"/>
+        <chain base_link="lr_Link" tip_link="lr52_6_Link"/>
+    </group>
+    <group name="arm_r">
+        <joint name="rr51_1_joint"/>
+        <joint name="rr51_2_joint"/>
+        <joint name="rr51_3_joint"/>
+        <joint name="rr51_4_joint"/>
+        <joint name="rr51_5_joint"/>
+        <joint name="rr51_6_joint"/>
+    </group>
+    <group name="both">
+        <group name="arm_l"/>
+        <group name="arm_r"/>
+    </group>
+    <!--GROUP STATES: Purpose: Define a named state for a particular group, in terms of joint values. This is useful to define states like 'folded arms'-->
+    <group_state name="home" group="both">
+        <joint name="lr52_1_joint" value="0"/>
+        <joint name="lr52_2_joint" value="0"/>
+        <joint name="lr52_3_joint" value="0"/>
+        <joint name="lr52_4_joint" value="0"/>
+        <joint name="lr52_5_joint" value="0"/>
+        <joint name="lr52_6_joint" value="0"/>
+        <joint name="rr51_1_joint" value="0"/>
+        <joint name="rr51_2_joint" value="0"/>
+        <joint name="rr51_3_joint" value="0"/>
+        <joint name="rr51_4_joint" value="0"/>
+        <joint name="rr51_5_joint" value="0"/>
+        <joint name="rr51_6_joint" value="0"/>
+    </group_state>
+    <!--VIRTUAL JOINT: Purpose: this element defines a virtual joint between a robot link and an external frame of reference (considered fixed with respect to the robot)-->
+    <virtual_joint name="virtual_joint" type="fixed" parent_frame="world" child_link="base_link"/>
+    <!--PASSIVE JOINT: Purpose: this element is used to mark joints that are not actuated-->
+    <passive_joint name="lbu_joint"/>
+    <passive_joint name="lbd_joint"/>
+    <passive_joint name="lfu_joint"/>
+    <passive_joint name="lfd_joint"/>
+    <passive_joint name="rbu_joint"/>
+    <passive_joint name="rbd_joint"/>
+    <passive_joint name="rfu_joint"/>
+    <passive_joint name="rfd_joint"/>
+    <passive_joint name="rl_joint"/>
+    <passive_joint name="ca53_1_joint"/>
+    <!--DISABLE COLLISIONS: By default it is assumed that any link of the robot could potentially come into collision with any other link in the robot. This tag disables collision checking between a specified pair of links. -->
+    <disable_collisions link1="D60_Link" link2="D70_Link" reason="Never"/>
+    <disable_collisions link1="D60_Link" link2="D80_Link" reason="Never"/>
+    <disable_collisions link1="D60_Link" link2="D90_Link" reason="Never"/>
+    <disable_collisions link1="D60_Link" link2="base_link" reason="Adjacent"/>
+    <disable_collisions link1="D60_Link" link2="ca53_1_Link" reason="Never"/>
+    <disable_collisions link1="D60_Link" link2="ca_Link" reason="Never"/>
+    <disable_collisions link1="D60_Link" link2="lbd_Link" reason="Never"/>
+    <disable_collisions link1="D60_Link" link2="lbu_Link" reason="Never"/>
+    <disable_collisions link1="D60_Link" link2="lfd_Link" reason="Never"/>
+    <disable_collisions link1="D60_Link" link2="lfu_Link" reason="Never"/>
+    <disable_collisions link1="D60_Link" link2="lr52_1_Link" reason="Never"/>
+    <disable_collisions link1="D60_Link" link2="lr52_2_Link" reason="Never"/>
+    <disable_collisions link1="D60_Link" link2="lr_Link" reason="Never"/>
+    <disable_collisions link1="D60_Link" link2="rbd_Link" reason="Never"/>
+    <disable_collisions link1="D60_Link" link2="rbu_Link" reason="Never"/>
+    <disable_collisions link1="D60_Link" link2="rfd_Link" reason="Never"/>
+    <disable_collisions link1="D60_Link" link2="rfu_Link" reason="Never"/>
+    <disable_collisions link1="D60_Link" link2="rl_Link" reason="Never"/>
+    <disable_collisions link1="D60_Link" link2="rr51_1_Link" reason="Never"/>
+    <disable_collisions link1="D60_Link" link2="rr51_2_Link" reason="Never"/>
+    <disable_collisions link1="D60_Link" link2="rr_Link" reason="Never"/>
+    <disable_collisions link1="D60_Link" link2="tool_Link" reason="Never"/>
+    <disable_collisions link1="D70_Link" link2="D80_Link" reason="Never"/>
+    <disable_collisions link1="D70_Link" link2="D90_Link" reason="Never"/>
+    <disable_collisions link1="D70_Link" link2="base_link" reason="Adjacent"/>
+    <disable_collisions link1="D70_Link" link2="ca53_1_Link" reason="Never"/>
+    <disable_collisions link1="D70_Link" link2="ca_Link" reason="Never"/>
+    <disable_collisions link1="D70_Link" link2="lbd_Link" reason="Never"/>
+    <disable_collisions link1="D70_Link" link2="lbu_Link" reason="Never"/>
+    <disable_collisions link1="D70_Link" link2="lfd_Link" reason="Never"/>
+    <disable_collisions link1="D70_Link" link2="lfu_Link" reason="Never"/>
+    <disable_collisions link1="D70_Link" link2="lr52_1_Link" reason="Never"/>
+    <disable_collisions link1="D70_Link" link2="lr52_2_Link" reason="Never"/>
+    <disable_collisions link1="D70_Link" link2="lr52_3_Link" reason="Never"/>
+    <disable_collisions link1="D70_Link" link2="lr52_4_Link" reason="Never"/>
+    <disable_collisions link1="D70_Link" link2="lr52_5_Link" reason="Never"/>
+    <disable_collisions link1="D70_Link" link2="lr52_6_Link" reason="Never"/>
+    <disable_collisions link1="D70_Link" link2="lr_Link" reason="Never"/>
+    <disable_collisions link1="D70_Link" link2="rbd_Link" reason="Never"/>
+    <disable_collisions link1="D70_Link" link2="rbu_Link" reason="Never"/>
+    <disable_collisions link1="D70_Link" link2="rfd_Link" reason="Never"/>
+    <disable_collisions link1="D70_Link" link2="rfu_Link" reason="Never"/>
+    <disable_collisions link1="D70_Link" link2="rl_Link" reason="Never"/>
+    <disable_collisions link1="D70_Link" link2="rr51_1_Link" reason="Never"/>
+    <disable_collisions link1="D70_Link" link2="rr51_2_Link" reason="Never"/>
+    <disable_collisions link1="D70_Link" link2="rr_Link" reason="Never"/>
+    <disable_collisions link1="D70_Link" link2="tool_Link" reason="Never"/>
+    <disable_collisions link1="D80_Link" link2="D90_Link" reason="Never"/>
+    <disable_collisions link1="D80_Link" link2="base_link" reason="Adjacent"/>
+    <disable_collisions link1="D80_Link" link2="ca53_1_Link" reason="Never"/>
+    <disable_collisions link1="D80_Link" link2="ca_Link" reason="Never"/>
+    <disable_collisions link1="D80_Link" link2="lbd_Link" reason="Never"/>
+    <disable_collisions link1="D80_Link" link2="lbu_Link" reason="Never"/>
+    <disable_collisions link1="D80_Link" link2="lfd_Link" reason="Never"/>
+    <disable_collisions link1="D80_Link" link2="lfu_Link" reason="Never"/>
+    <disable_collisions link1="D80_Link" link2="lr52_1_Link" reason="Never"/>
+    <disable_collisions link1="D80_Link" link2="lr52_2_Link" reason="Never"/>
+    <disable_collisions link1="D80_Link" link2="lr_Link" reason="Never"/>
+    <disable_collisions link1="D80_Link" link2="rbd_Link" reason="Never"/>
+    <disable_collisions link1="D80_Link" link2="rbu_Link" reason="Never"/>
+    <disable_collisions link1="D80_Link" link2="rfd_Link" reason="Never"/>
+    <disable_collisions link1="D80_Link" link2="rfu_Link" reason="Never"/>
+    <disable_collisions link1="D80_Link" link2="rl_Link" reason="Never"/>
+    <disable_collisions link1="D80_Link" link2="rr51_1_Link" reason="Never"/>
+    <disable_collisions link1="D80_Link" link2="rr51_2_Link" reason="Never"/>
+    <disable_collisions link1="D80_Link" link2="rr_Link" reason="Never"/>
+    <disable_collisions link1="D80_Link" link2="tool_Link" reason="Never"/>
+    <disable_collisions link1="D90_Link" link2="base_link" reason="Adjacent"/>
+    <disable_collisions link1="D90_Link" link2="ca53_1_Link" reason="Never"/>
+    <disable_collisions link1="D90_Link" link2="ca_Link" reason="Never"/>
+    <disable_collisions link1="D90_Link" link2="lbd_Link" reason="Never"/>
+    <disable_collisions link1="D90_Link" link2="lbu_Link" reason="Never"/>
+    <disable_collisions link1="D90_Link" link2="lfd_Link" reason="Never"/>
+    <disable_collisions link1="D90_Link" link2="lfu_Link" reason="Never"/>
+    <disable_collisions link1="D90_Link" link2="lr52_1_Link" reason="Never"/>
+    <disable_collisions link1="D90_Link" link2="lr52_2_Link" reason="Never"/>
+    <disable_collisions link1="D90_Link" link2="lr_Link" reason="Never"/>
+    <disable_collisions link1="D90_Link" link2="rbd_Link" reason="Never"/>
+    <disable_collisions link1="D90_Link" link2="rbu_Link" reason="Never"/>
+    <disable_collisions link1="D90_Link" link2="rfd_Link" reason="Never"/>
+    <disable_collisions link1="D90_Link" link2="rfu_Link" reason="Never"/>
+    <disable_collisions link1="D90_Link" link2="rl_Link" reason="Never"/>
+    <disable_collisions link1="D90_Link" link2="rr51_1_Link" reason="Never"/>
+    <disable_collisions link1="D90_Link" link2="rr51_2_Link" reason="Never"/>
+    <disable_collisions link1="D90_Link" link2="rr51_3_Link" reason="Never"/>
+    <disable_collisions link1="D90_Link" link2="rr51_4_Link" reason="Never"/>
+    <disable_collisions link1="D90_Link" link2="rr51_5_Link" reason="Never"/>
+    <disable_collisions link1="D90_Link" link2="rr51_6_Link" reason="Never"/>
+    <disable_collisions link1="D90_Link" link2="rr_Link" reason="Never"/>
+    <disable_collisions link1="D90_Link" link2="tool_Link" reason="Never"/>
+    <disable_collisions link1="base_link" link2="ca53_1_Link" reason="Never"/>
+    <disable_collisions link1="base_link" link2="ca_Link" reason="Never"/>
+    <disable_collisions link1="base_link" link2="lbd_Link" reason="Never"/>
+    <disable_collisions link1="base_link" link2="lbu_Link" reason="Adjacent"/>
+    <disable_collisions link1="base_link" link2="lfd_Link" reason="Never"/>
+    <disable_collisions link1="base_link" link2="lfu_Link" reason="Adjacent"/>
+    <disable_collisions link1="base_link" link2="lr52_1_Link" reason="Never"/>
+    <disable_collisions link1="base_link" link2="lr_Link" reason="Never"/>
+    <disable_collisions link1="base_link" link2="rbd_Link" reason="Never"/>
+    <disable_collisions link1="base_link" link2="rbu_Link" reason="Adjacent"/>
+    <disable_collisions link1="base_link" link2="rfd_Link" reason="Never"/>
+    <disable_collisions link1="base_link" link2="rfu_Link" reason="Adjacent"/>
+    <disable_collisions link1="base_link" link2="rl_Link" reason="Adjacent"/>
+    <disable_collisions link1="base_link" link2="rr51_1_Link" reason="Never"/>
+    <disable_collisions link1="base_link" link2="rr_Link" reason="Never"/>
+    <disable_collisions link1="base_link" link2="tool_Link" reason="Never"/>
+    <disable_collisions link1="ca53_1_Link" link2="ca_Link" reason="Adjacent"/>
+    <disable_collisions link1="ca53_1_Link" link2="lbd_Link" reason="Never"/>
+    <disable_collisions link1="ca53_1_Link" link2="lbu_Link" reason="Never"/>
+    <disable_collisions link1="ca53_1_Link" link2="lfd_Link" reason="Never"/>
+    <disable_collisions link1="ca53_1_Link" link2="lfu_Link" reason="Never"/>
+    <disable_collisions link1="ca53_1_Link" link2="lr52_1_Link" reason="Never"/>
+    <disable_collisions link1="ca53_1_Link" link2="lr_Link" reason="Never"/>
+    <disable_collisions link1="ca53_1_Link" link2="rbd_Link" reason="Never"/>
+    <disable_collisions link1="ca53_1_Link" link2="rbu_Link" reason="Never"/>
+    <disable_collisions link1="ca53_1_Link" link2="rfd_Link" reason="Never"/>
+    <disable_collisions link1="ca53_1_Link" link2="rfu_Link" reason="Never"/>
+    <disable_collisions link1="ca53_1_Link" link2="rl_Link" reason="Never"/>
+    <disable_collisions link1="ca53_1_Link" link2="rr51_1_Link" reason="Never"/>
+    <disable_collisions link1="ca53_1_Link" link2="rr_Link" reason="Never"/>
+    <disable_collisions link1="ca53_1_Link" link2="tool_Link" reason="Never"/>
+    <disable_collisions link1="ca_Link" link2="lbd_Link" reason="Never"/>
+    <disable_collisions link1="ca_Link" link2="lbu_Link" reason="Never"/>
+    <disable_collisions link1="ca_Link" link2="lfd_Link" reason="Never"/>
+    <disable_collisions link1="ca_Link" link2="lfu_Link" reason="Never"/>
+    <disable_collisions link1="ca_Link" link2="lr52_1_Link" reason="Never"/>
+    <disable_collisions link1="ca_Link" link2="lr_Link" reason="Never"/>
+    <disable_collisions link1="ca_Link" link2="rbd_Link" reason="Never"/>
+    <disable_collisions link1="ca_Link" link2="rbu_Link" reason="Never"/>
+    <disable_collisions link1="ca_Link" link2="rfd_Link" reason="Never"/>
+    <disable_collisions link1="ca_Link" link2="rfu_Link" reason="Never"/>
+    <disable_collisions link1="ca_Link" link2="rl_Link" reason="Adjacent"/>
+    <disable_collisions link1="ca_Link" link2="rr51_1_Link" reason="Never"/>
+    <disable_collisions link1="ca_Link" link2="rr_Link" reason="Never"/>
+    <disable_collisions link1="ca_Link" link2="tool_Link" reason="Never"/>
+    <disable_collisions link1="lbd_Link" link2="lbu_Link" reason="Adjacent"/>
+    <disable_collisions link1="lbd_Link" link2="lfd_Link" reason="Never"/>
+    <disable_collisions link1="lbd_Link" link2="lfu_Link" reason="Never"/>
+    <disable_collisions link1="lbd_Link" link2="lr52_1_Link" reason="Never"/>
+    <disable_collisions link1="lbd_Link" link2="lr52_2_Link" reason="Never"/>
+    <disable_collisions link1="lbd_Link" link2="lr52_3_Link" reason="Never"/>
+    <disable_collisions link1="lbd_Link" link2="lr52_4_Link" reason="Never"/>
+    <disable_collisions link1="lbd_Link" link2="lr52_5_Link" reason="Never"/>
+    <disable_collisions link1="lbd_Link" link2="lr52_6_Link" reason="Never"/>
+    <disable_collisions link1="lbd_Link" link2="lr_Link" reason="Never"/>
+    <disable_collisions link1="lbd_Link" link2="rbd_Link" reason="Never"/>
+    <disable_collisions link1="lbd_Link" link2="rbu_Link" reason="Never"/>
+    <disable_collisions link1="lbd_Link" link2="rfd_Link" reason="Never"/>
+    <disable_collisions link1="lbd_Link" link2="rfu_Link" reason="Never"/>
+    <disable_collisions link1="lbd_Link" link2="rl_Link" reason="Never"/>
+    <disable_collisions link1="lbd_Link" link2="rr51_1_Link" reason="Never"/>
+    <disable_collisions link1="lbd_Link" link2="rr51_2_Link" reason="Never"/>
+    <disable_collisions link1="lbd_Link" link2="rr51_3_Link" reason="Never"/>
+    <disable_collisions link1="lbd_Link" link2="rr51_4_Link" reason="Never"/>
+    <disable_collisions link1="lbd_Link" link2="rr51_5_Link" reason="Never"/>
+    <disable_collisions link1="lbd_Link" link2="rr51_6_Link" reason="Never"/>
+    <disable_collisions link1="lbd_Link" link2="rr_Link" reason="Never"/>
+    <disable_collisions link1="lbd_Link" link2="tool_Link" reason="Never"/>
+    <disable_collisions link1="lbu_Link" link2="lfd_Link" reason="Never"/>
+    <disable_collisions link1="lbu_Link" link2="lfu_Link" reason="Never"/>
+    <disable_collisions link1="lbu_Link" link2="lr52_1_Link" reason="Never"/>
+    <disable_collisions link1="lbu_Link" link2="lr52_2_Link" reason="Never"/>
+    <disable_collisions link1="lbu_Link" link2="lr52_3_Link" reason="Never"/>
+    <disable_collisions link1="lbu_Link" link2="lr52_4_Link" reason="Never"/>
+    <disable_collisions link1="lbu_Link" link2="lr52_5_Link" reason="Never"/>
+    <disable_collisions link1="lbu_Link" link2="lr52_6_Link" reason="Never"/>
+    <disable_collisions link1="lbu_Link" link2="lr_Link" reason="Never"/>
+    <disable_collisions link1="lbu_Link" link2="rbd_Link" reason="Never"/>
+    <disable_collisions link1="lbu_Link" link2="rbu_Link" reason="Never"/>
+    <disable_collisions link1="lbu_Link" link2="rfd_Link" reason="Never"/>
+    <disable_collisions link1="lbu_Link" link2="rfu_Link" reason="Never"/>
+    <disable_collisions link1="lbu_Link" link2="rl_Link" reason="Never"/>
+    <disable_collisions link1="lbu_Link" link2="rr51_1_Link" reason="Never"/>
+    <disable_collisions link1="lbu_Link" link2="rr51_2_Link" reason="Never"/>
+    <disable_collisions link1="lbu_Link" link2="rr51_3_Link" reason="Never"/>
+    <disable_collisions link1="lbu_Link" link2="rr51_4_Link" reason="Never"/>
+    <disable_collisions link1="lbu_Link" link2="rr51_5_Link" reason="Never"/>
+    <disable_collisions link1="lbu_Link" link2="rr51_6_Link" reason="Never"/>
+    <disable_collisions link1="lbu_Link" link2="rr_Link" reason="Never"/>
+    <disable_collisions link1="lbu_Link" link2="tool_Link" reason="Never"/>
+    <disable_collisions link1="lfd_Link" link2="lfu_Link" reason="Adjacent"/>
+    <disable_collisions link1="lfd_Link" link2="lr52_1_Link" reason="Never"/>
+    <disable_collisions link1="lfd_Link" link2="lr52_2_Link" reason="Never"/>
+    <disable_collisions link1="lfd_Link" link2="lr52_3_Link" reason="Never"/>
+    <disable_collisions link1="lfd_Link" link2="lr52_4_Link" reason="Never"/>
+    <disable_collisions link1="lfd_Link" link2="lr52_5_Link" reason="Never"/>
+    <disable_collisions link1="lfd_Link" link2="lr52_6_Link" reason="Never"/>
+    <disable_collisions link1="lfd_Link" link2="lr_Link" reason="Never"/>
+    <disable_collisions link1="lfd_Link" link2="rbd_Link" reason="Never"/>
+    <disable_collisions link1="lfd_Link" link2="rbu_Link" reason="Never"/>
+    <disable_collisions link1="lfd_Link" link2="rfd_Link" reason="Never"/>
+    <disable_collisions link1="lfd_Link" link2="rfu_Link" reason="Never"/>
+    <disable_collisions link1="lfd_Link" link2="rl_Link" reason="Never"/>
+    <disable_collisions link1="lfd_Link" link2="rr51_1_Link" reason="Never"/>
+    <disable_collisions link1="lfd_Link" link2="rr51_2_Link" reason="Never"/>
+    <disable_collisions link1="lfd_Link" link2="rr51_3_Link" reason="Never"/>
+    <disable_collisions link1="lfd_Link" link2="rr51_4_Link" reason="Never"/>
+    <disable_collisions link1="lfd_Link" link2="rr51_5_Link" reason="Never"/>
+    <disable_collisions link1="lfd_Link" link2="rr51_6_Link" reason="Never"/>
+    <disable_collisions link1="lfd_Link" link2="rr_Link" reason="Never"/>
+    <disable_collisions link1="lfd_Link" link2="tool_Link" reason="Never"/>
+    <disable_collisions link1="lfu_Link" link2="lr52_1_Link" reason="Never"/>
+    <disable_collisions link1="lfu_Link" link2="lr52_2_Link" reason="Never"/>
+    <disable_collisions link1="lfu_Link" link2="lr52_3_Link" reason="Never"/>
+    <disable_collisions link1="lfu_Link" link2="lr52_4_Link" reason="Never"/>
+    <disable_collisions link1="lfu_Link" link2="lr52_5_Link" reason="Never"/>
+    <disable_collisions link1="lfu_Link" link2="lr52_6_Link" reason="Never"/>
+    <disable_collisions link1="lfu_Link" link2="lr_Link" reason="Never"/>
+    <disable_collisions link1="lfu_Link" link2="rbd_Link" reason="Never"/>
+    <disable_collisions link1="lfu_Link" link2="rbu_Link" reason="Never"/>
+    <disable_collisions link1="lfu_Link" link2="rfd_Link" reason="Never"/>
+    <disable_collisions link1="lfu_Link" link2="rfu_Link" reason="Never"/>
+    <disable_collisions link1="lfu_Link" link2="rl_Link" reason="Never"/>
+    <disable_collisions link1="lfu_Link" link2="rr51_1_Link" reason="Never"/>
+    <disable_collisions link1="lfu_Link" link2="rr51_2_Link" reason="Never"/>
+    <disable_collisions link1="lfu_Link" link2="rr51_3_Link" reason="Never"/>
+    <disable_collisions link1="lfu_Link" link2="rr51_4_Link" reason="Never"/>
+    <disable_collisions link1="lfu_Link" link2="rr51_5_Link" reason="Never"/>
+    <disable_collisions link1="lfu_Link" link2="rr51_6_Link" reason="Never"/>
+    <disable_collisions link1="lfu_Link" link2="rr_Link" reason="Never"/>
+    <disable_collisions link1="lfu_Link" link2="tool_Link" reason="Never"/>
+    <disable_collisions link1="lr52_1_Link" link2="lr52_2_Link" reason="Adjacent"/>
+    <disable_collisions link1="lr52_1_Link" link2="lr52_4_Link" reason="Never"/>
+    <disable_collisions link1="lr52_1_Link" link2="lr52_5_Link" reason="Never"/>
+    <disable_collisions link1="lr52_1_Link" link2="lr_Link" reason="Adjacent"/>
+    <disable_collisions link1="lr52_1_Link" link2="rbd_Link" reason="Never"/>
+    <disable_collisions link1="lr52_1_Link" link2="rbu_Link" reason="Never"/>
+    <disable_collisions link1="lr52_1_Link" link2="rfd_Link" reason="Never"/>
+    <disable_collisions link1="lr52_1_Link" link2="rfu_Link" reason="Never"/>
+    <disable_collisions link1="lr52_1_Link" link2="rl_Link" reason="Never"/>
+    <disable_collisions link1="lr52_1_Link" link2="rr51_1_Link" reason="Never"/>
+    <disable_collisions link1="lr52_1_Link" link2="rr_Link" reason="Never"/>
+    <disable_collisions link1="lr52_1_Link" link2="tool_Link" reason="Never"/>
+    <disable_collisions link1="lr52_2_Link" link2="lr52_3_Link" reason="Adjacent"/>
+    <disable_collisions link1="lr52_2_Link" link2="lr_Link" reason="Never"/>
+    <disable_collisions link1="lr52_2_Link" link2="rbd_Link" reason="Never"/>
+    <disable_collisions link1="lr52_2_Link" link2="rbu_Link" reason="Never"/>
+    <disable_collisions link1="lr52_2_Link" link2="rfd_Link" reason="Never"/>
+    <disable_collisions link1="lr52_2_Link" link2="rfu_Link" reason="Never"/>
+    <disable_collisions link1="lr52_3_Link" link2="lr52_4_Link" reason="Adjacent"/>
+    <disable_collisions link1="lr52_3_Link" link2="lr52_5_Link" reason="Never"/>
+    <disable_collisions link1="lr52_3_Link" link2="rbd_Link" reason="Never"/>
+    <disable_collisions link1="lr52_3_Link" link2="rbu_Link" reason="Never"/>
+    <disable_collisions link1="lr52_3_Link" link2="rfd_Link" reason="Never"/>
+    <disable_collisions link1="lr52_3_Link" link2="rfu_Link" reason="Never"/>
+    <disable_collisions link1="lr52_4_Link" link2="lr52_5_Link" reason="Adjacent"/>
+    <disable_collisions link1="lr52_4_Link" link2="lr52_6_Link" reason="Never"/>
+    <disable_collisions link1="lr52_4_Link" link2="lr_Link" reason="Never"/>
+    <disable_collisions link1="lr52_4_Link" link2="rbd_Link" reason="Never"/>
+    <disable_collisions link1="lr52_4_Link" link2="rbu_Link" reason="Never"/>
+    <disable_collisions link1="lr52_4_Link" link2="rfd_Link" reason="Never"/>
+    <disable_collisions link1="lr52_4_Link" link2="rfu_Link" reason="Never"/>
+    <disable_collisions link1="lr52_5_Link" link2="lr52_6_Link" reason="Adjacent"/>
+    <disable_collisions link1="lr52_5_Link" link2="lr_Link" reason="Never"/>
+    <disable_collisions link1="lr52_5_Link" link2="rbd_Link" reason="Never"/>
+    <disable_collisions link1="lr52_5_Link" link2="rbu_Link" reason="Never"/>
+    <disable_collisions link1="lr52_5_Link" link2="rfd_Link" reason="Never"/>
+    <disable_collisions link1="lr52_5_Link" link2="rfu_Link" reason="Never"/>
+    <disable_collisions link1="lr52_6_Link" link2="rbd_Link" reason="Never"/>
+    <disable_collisions link1="lr52_6_Link" link2="rbu_Link" reason="Never"/>
+    <disable_collisions link1="lr52_6_Link" link2="rfd_Link" reason="Never"/>
+    <disable_collisions link1="lr52_6_Link" link2="rfu_Link" reason="Never"/>
+    <disable_collisions link1="lr_Link" link2="rbd_Link" reason="Never"/>
+    <disable_collisions link1="lr_Link" link2="rbu_Link" reason="Never"/>
+    <disable_collisions link1="lr_Link" link2="rfd_Link" reason="Never"/>
+    <disable_collisions link1="lr_Link" link2="rfu_Link" reason="Never"/>
+    <disable_collisions link1="lr_Link" link2="rl_Link" reason="Adjacent"/>
+    <disable_collisions link1="lr_Link" link2="rr51_1_Link" reason="Never"/>
+    <disable_collisions link1="lr_Link" link2="rr_Link" reason="Never"/>
+    <disable_collisions link1="lr_Link" link2="tool_Link" reason="Never"/>
+    <disable_collisions link1="rbd_Link" link2="rbu_Link" reason="Adjacent"/>
+    <disable_collisions link1="rbd_Link" link2="rfd_Link" reason="Never"/>
+    <disable_collisions link1="rbd_Link" link2="rfu_Link" reason="Never"/>
+    <disable_collisions link1="rbd_Link" link2="rl_Link" reason="Never"/>
+    <disable_collisions link1="rbd_Link" link2="rr51_1_Link" reason="Never"/>
+    <disable_collisions link1="rbd_Link" link2="rr51_2_Link" reason="Never"/>
+    <disable_collisions link1="rbd_Link" link2="rr51_3_Link" reason="Never"/>
+    <disable_collisions link1="rbd_Link" link2="rr51_4_Link" reason="Never"/>
+    <disable_collisions link1="rbd_Link" link2="rr51_5_Link" reason="Never"/>
+    <disable_collisions link1="rbd_Link" link2="rr51_6_Link" reason="Never"/>
+    <disable_collisions link1="rbd_Link" link2="rr_Link" reason="Never"/>
+    <disable_collisions link1="rbd_Link" link2="tool_Link" reason="Never"/>
+    <disable_collisions link1="rbu_Link" link2="rfd_Link" reason="Never"/>
+    <disable_collisions link1="rbu_Link" link2="rfu_Link" reason="Never"/>
+    <disable_collisions link1="rbu_Link" link2="rl_Link" reason="Never"/>
+    <disable_collisions link1="rbu_Link" link2="rr51_1_Link" reason="Never"/>
+    <disable_collisions link1="rbu_Link" link2="rr51_2_Link" reason="Never"/>
+    <disable_collisions link1="rbu_Link" link2="rr51_3_Link" reason="Never"/>
+    <disable_collisions link1="rbu_Link" link2="rr51_4_Link" reason="Never"/>
+    <disable_collisions link1="rbu_Link" link2="rr51_5_Link" reason="Never"/>
+    <disable_collisions link1="rbu_Link" link2="rr51_6_Link" reason="Never"/>
+    <disable_collisions link1="rbu_Link" link2="rr_Link" reason="Never"/>
+    <disable_collisions link1="rbu_Link" link2="tool_Link" reason="Never"/>
+    <disable_collisions link1="rfd_Link" link2="rfu_Link" reason="Adjacent"/>
+    <disable_collisions link1="rfd_Link" link2="rl_Link" reason="Never"/>
+    <disable_collisions link1="rfd_Link" link2="rr51_1_Link" reason="Never"/>
+    <disable_collisions link1="rfd_Link" link2="rr51_2_Link" reason="Never"/>
+    <disable_collisions link1="rfd_Link" link2="rr51_3_Link" reason="Never"/>
+    <disable_collisions link1="rfd_Link" link2="rr51_4_Link" reason="Never"/>
+    <disable_collisions link1="rfd_Link" link2="rr51_5_Link" reason="Never"/>
+    <disable_collisions link1="rfd_Link" link2="rr51_6_Link" reason="Never"/>
+    <disable_collisions link1="rfd_Link" link2="rr_Link" reason="Never"/>
+    <disable_collisions link1="rfd_Link" link2="tool_Link" reason="Never"/>
+    <disable_collisions link1="rfu_Link" link2="rl_Link" reason="Never"/>
+    <disable_collisions link1="rfu_Link" link2="rr51_1_Link" reason="Never"/>
+    <disable_collisions link1="rfu_Link" link2="rr51_2_Link" reason="Never"/>
+    <disable_collisions link1="rfu_Link" link2="rr51_3_Link" reason="Never"/>
+    <disable_collisions link1="rfu_Link" link2="rr51_4_Link" reason="Never"/>
+    <disable_collisions link1="rfu_Link" link2="rr51_5_Link" reason="Never"/>
+    <disable_collisions link1="rfu_Link" link2="rr51_6_Link" reason="Never"/>
+    <disable_collisions link1="rfu_Link" link2="rr_Link" reason="Never"/>
+    <disable_collisions link1="rfu_Link" link2="tool_Link" reason="Never"/>
+    <disable_collisions link1="rl_Link" link2="rr51_1_Link" reason="Never"/>
+    <disable_collisions link1="rl_Link" link2="rr_Link" reason="Adjacent"/>
+    <disable_collisions link1="rl_Link" link2="tool_Link" reason="Adjacent"/>
+    <disable_collisions link1="rr51_1_Link" link2="rr51_2_Link" reason="Adjacent"/>
+    <disable_collisions link1="rr51_1_Link" link2="rr51_4_Link" reason="Never"/>
+    <disable_collisions link1="rr51_1_Link" link2="rr51_5_Link" reason="Never"/>
+    <disable_collisions link1="rr51_1_Link" link2="rr_Link" reason="Adjacent"/>
+    <disable_collisions link1="rr51_1_Link" link2="tool_Link" reason="Never"/>
+    <disable_collisions link1="rr51_2_Link" link2="rr51_3_Link" reason="Adjacent"/>
+    <disable_collisions link1="rr51_2_Link" link2="rr_Link" reason="Never"/>
+    <disable_collisions link1="rr51_3_Link" link2="rr51_4_Link" reason="Adjacent"/>
+    <disable_collisions link1="rr51_3_Link" link2="rr51_5_Link" reason="Never"/>
+    <disable_collisions link1="rr51_4_Link" link2="rr51_5_Link" reason="Adjacent"/>
+    <disable_collisions link1="rr51_4_Link" link2="rr51_6_Link" reason="Never"/>
+    <disable_collisions link1="rr51_4_Link" link2="rr_Link" reason="Never"/>
+    <disable_collisions link1="rr51_5_Link" link2="rr51_6_Link" reason="Adjacent"/>
+    <disable_collisions link1="rr51_5_Link" link2="rr_Link" reason="Never"/>
+    <disable_collisions link1="rr_Link" link2="tool_Link" reason="Never"/>
+</robot>

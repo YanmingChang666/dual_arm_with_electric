@@ -1,0 +1,15 @@
+# Default initial positions for dual_arm_agv's ros2_control fake system
+
+initial_positions:
+  lr52_1_joint: 0
+  lr52_2_joint: 0
+  lr52_3_joint: 0
+  lr52_4_joint: 0
+  lr52_5_joint: 0
+  lr52_6_joint: 0
+  rr51_1_joint: 0
+  rr51_2_joint: 0
+  rr51_3_joint: 0
+  rr51_4_joint: 0
+  rr51_5_joint: 0
+  rr51_6_joint: 0

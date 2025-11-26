@@ -1,0 +1,13 @@
+# Request
+geometry_msgs/Pose target_pose_right
+geometry_msgs/Pose target_pose_left
+string control_mode
+bool use_cartesian  # 是否使用笛卡尔路径
+
+---
+# Response
+bool success
+string message
+bool right_arm_success
+bool left_arm_success
+float64 cartesian_fraction  # 笛卡尔路径完成度（0.0-1.0）

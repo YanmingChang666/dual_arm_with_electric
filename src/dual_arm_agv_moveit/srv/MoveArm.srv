@@ -1,0 +1,11 @@
+# Request
+geometry_msgs/Pose target_pose_right
+geometry_msgs/Pose target_pose_left
+string control_mode
+
+---
+# Response
+bool success
+string message
+bool right_arm_success
+bool left_arm_success
