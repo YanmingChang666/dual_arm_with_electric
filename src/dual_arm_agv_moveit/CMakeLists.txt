@@ -54,6 +54,30 @@ ament_target_dependencies(find_min_z_position
   geometry_msgs
 )
 
+# ========== 新增工具 ==========
+# 编译 find_min_z_universal 节点
+add_executable(find_min_z_universal src/find_min_z_universal.cpp)
+
+ament_target_dependencies(find_min_z_universal
+  rclcpp
+  moveit_core
+  moveit_ros_planning
+  moveit_ros_planning_interface
+  geometry_msgs
+)
+
+# ========== 新增工具 ==========
+# 编译 global_min_z_finder 节点
+add_executable(global_min_z_finder src/global_min_z_finder.cpp)
+
+ament_target_dependencies(global_min_z_finder
+  rclcpp
+  moveit_core
+  moveit_ros_planning
+  moveit_ros_planning_interface
+  geometry_msgs
+)
+
 # 编译 planning_diagnostic 节点
 add_executable(planning_diagnostic src/planning_diagnostic.cpp)
 
@@ -70,6 +94,8 @@ install(TARGETS
   arm_move_service
   find_min_z_position
   planning_diagnostic
+  find_min_z_universal
+  global_min_z_finder
   DESTINATION lib/${PROJECT_NAME}
 )
 
